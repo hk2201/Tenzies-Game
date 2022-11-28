@@ -15,7 +15,7 @@ main {
   background-color: #F5F5F5;
   height: 84vh;
   max-width: 100%;
-  /* border-radius: 5px; */
+  border-radius: 40px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@ main {
   background-color: #F5F5F5;
   padding-right: 10px;
   padding-top: 10px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .dice-container {
