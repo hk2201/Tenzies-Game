@@ -41,7 +41,7 @@ main {
   background-color: #F5F5F5;
   padding-right: 10px;
   padding-top: 10px;
-  /* border-radius: 5px; */
+  border-radius: 5px;
 }
 
 .dice-container {
