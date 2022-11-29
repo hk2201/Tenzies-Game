@@ -3,7 +3,6 @@ import Die from "./Die"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 import Switch from 'react-js-switch';
-import BasicModal from "./Modal";
 
 export default function App() {
 
