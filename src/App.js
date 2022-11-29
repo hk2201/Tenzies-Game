@@ -3,14 +3,19 @@ import Die from "./Die"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 import Switch from 'react-js-switch';
+import BasicModal from "./Modal";
 
 export default function App() {
+
 
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [dark, setDark] = React.useState(false)
     const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-    const [text,setText] = React.useState("LIGHT MODE")
+    const [score, setscore] = React.useState(JSON.parse(localStorage.getItem("scores")) || 0)
+
+    const val = JSON.parse(localStorage.getItem("scores"))
+
 
 
 
@@ -21,6 +26,10 @@ export default function App() {
         if (allHeld && allSameValue) {
             setTenzies(true)
         }
+        localStorage.setItem("scores", JSON.stringify(score))
+
+
+
     }, [dice])
 
     function generateNewDie() {
@@ -39,17 +48,27 @@ export default function App() {
         return newDice
     }
 
+
     function rollDice() {
+        setscore(prev => prev + 1)
         if (!tenzies) {
             setDice(oldDice => oldDice.map(die => {
                 return die.isHeld ?
                     die :
                     generateNewDie()
             }))
-        } else {
+        }
+        else {
             setTenzies(false)
             setDice(allNewDice())
+
+
+            setscore(0)
+
         }
+
+
+
     }
 
     function holdDice(id) {
@@ -65,10 +84,7 @@ export default function App() {
         setIsSwitchOn(prev => !prev)
     }
 
-    function modeText(){
-        setText({})
-        
-    }
+
 
 
 
@@ -92,11 +108,11 @@ export default function App() {
             <div className="sw">
 
                 <Switch size={50} value={isSwitchOn} onChange={darkMode} />
-                <span style={{paddingTop : 6, color:"white"}}>
+                <span style={{ paddingTop: 6, color: "white" }}>
 
-                {dark  ? "DARK MODE" : "LIGHT MODE"}
+                    {dark ? "DARK MODE" : "LIGHT MODE"}
                 </span>
-                
+
 
             </div>
 
@@ -106,6 +122,7 @@ export default function App() {
 
 
                 {tenzies && <Confetti />}
+                {tenzies && <h1>Your Score is {val}</h1>}
                 <h1 className="title">Tenzies</h1>
                 <p className="instructions">Roll until all dice are the same.
                     Click each die to freeze it at its current value between rolls.</p>
@@ -118,6 +135,8 @@ export default function App() {
                 >
                     {tenzies ? "New Game" : "Roll"}
                 </button>
+
+
             </main>
         </>
     )
