@@ -1,8 +1,11 @@
-import React from "react"
+// import  React from "react"
 import Die from "./Die"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
-import Switch from 'react-js-switch';
+// import Switch from 'react-js-switch';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 export default function App() {
 
@@ -10,7 +13,8 @@ export default function App() {
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [dark, setDark] = React.useState(false)
-    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+    // const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+    const [isDarkMode, setDarkMode] = React.useState(false);
     const [score, setscore] = React.useState(JSON.parse(localStorage.getItem("scores")) || 0)
 
     const val = JSON.parse(localStorage.getItem("scores"))
@@ -80,7 +84,7 @@ export default function App() {
 
     function darkMode() {
         setDark(prev => !prev)
-        setIsSwitchOn(prev => !prev)
+        setDarkMode(prev => !prev)
     }
 
 
@@ -106,7 +110,15 @@ export default function App() {
         <>
             <div className="sw">
 
-                <Switch size={50} value={isSwitchOn} onChange={darkMode} />
+
+
+                {/* <Switch size={50} value={isSwitchOn} onChange={darkMode} /> */}
+                <DarkModeSwitch
+                style={{ color: isDarkMode ? "white" : "#FDB813" }}
+                checked={isDarkMode}
+                onChange={darkMode}
+                size={30}
+                />
                 <span style={{ paddingTop: 6, color: "white" }}>
 
                     {dark ? "DARK MODE" : "LIGHT MODE"}
